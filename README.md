@@ -75,13 +75,13 @@ Logical commit messages were used:
 - Add basic unit test structure
 - Add edge case tests
 - Refactor: code cleanup
+- Small changes to readme 
 
 ### 4. Pull Request Workflow
 A Pull Request was created from `unit-tests → main` with a descriptive summary:
 - What was added
 - What tests were implemented
 - What issues were found or fixed
-
 ---
 
 ## Debugging and Fixing Errors
