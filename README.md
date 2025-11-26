@@ -1,6 +1,4 @@
-# Lab-1: Multi-Phase Merge Sort Implementation
 
-**Author:** Shalkina Artem, IPS-21
 
 ---
 
