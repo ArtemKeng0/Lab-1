@@ -2,6 +2,14 @@
 using namespace std;
 
 // Merge two sorted subarrays
+/**
+ * @brief Merges two sorted subarrays into one sorted array.
+ * * This function performs the core merge step of the merge sort algorithm.
+ * * @param arr The array containing the subarrays to be merged.
+ * @param l The starting index of the first subarray.
+ * @param m The ending index of the first subarray (mid-point).
+ * @param r The ending index of the second subarray.
+ */
 void mergeArrays(int arr[], int l, int m, int r) {
     int n1 = m - l + 1;
     int n2 = r - m;
@@ -27,6 +35,14 @@ void mergeArrays(int arr[], int l, int m, int r) {
 }
 
 // Multi-phase merge sort
+/**
+ * @brief Performs Multi-Phase (Iterative) Merge Sort on the given array.
+ * * This bottom-up approach iteratively merges runs of increasing size (1, 2, 4, ...).
+ * It has a time complexity of O(n log n).
+ *
+ * @param arr The array to be sorted.
+ * @param n The number of elements in the array.
+ */
 void multiPhaseMergeSort(int arr[], int n) {
     int size = 1;
 
