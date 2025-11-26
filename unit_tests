@@ -199,6 +199,9 @@ cout << "Testing multiPhaseMergeSort..." << endl;
 
     cout << "multiPhaseMergeSort: 17 tests passed." << endl;
 
+cout << endl; 
+    cout << " All 22 Unit Tests Passed Successfully! (If no Assert message appeared)" << endl;
+}
 
 int main() {
     runTests(); 
