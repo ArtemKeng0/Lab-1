@@ -1,117 +1,71 @@
-# Lab-1
-Lab 1 software development tools  Shalkina Artem IPS-21  
+# Lab-1: Multi-Phase Merge Sort Implementation
+
+**Author:** Shalkina Artem, IPS-21
 
 ---
 
 ## Project Overview
 
-This repository contains a C++ implementation of **Multi-Phase Merge Sort**, a specialized merge-sort-based algorithm for external sorting.
+This repository contains a C++ implementation of the **Multi-Phase Merge Sort** algorithm. This algorithm is an iterative, specialized sorting method often used to model external sorting processes for large datasets.
 
-The project demonstrates:
-- Git and GitHub workflow
-- Branching strategies
-- Writing unit tests
-- Commit history formation
-- Pull Request creation
-- Proper project structure and documentation
+The project demonstrates proficiency in several key software development practices:
+- Git and GitHub workflow management
+- Branching strategies and disciplined commit history formation
+- Development of robust unit tests to ensure algorithm correctness
+- Pull Request creation as part of a standard development workflow
 
 ---
 
 ## Purpose of the Laboratory Work
 
-The goal of this assignment is to gain practical experience in:
-- Working with the Git version control system
-- Using GitHub as a collaboration platform
-- Creating and managing branches
-- Writing unit tests to validate program correctness
-- Debugging and improving code based on test results
-- Forming a complete development workflow using GitHub Pull Requests
+The goal of this assignment was to gain practical experience in:
+- Working effectively with the Git version control system
+- Using GitHub for collaborative project documentation and version control
+- Implementing and validating code correctness through unit testing
+- Forming a complete development workflow using feature branches and Pull Requests
 
 ---
 
-## Repository Structure
-```
-.
-├── main.cpp                    # Implementation of Multi-Phase Merge Sort
-├── README.md                   # Documentation (this file)                      
-├── test_sort.cpp               # Basic sorting tests
-└── test_edge_cases.cpp         # Edge-case unit tests
-```
+
+## Algorithm: Multi-Phase Merge Sort
+
+Multi-Phase Merge Sort is a variation of external merge sort, implemented here in its iterative (bottom-up) form. It is designed to minimize I/O operations by changing the roles of input and output files across multiple merge passes.
+
+### Implementation Principle
+
+The C++ implementation utilizes the iterative approach:
+- It starts by considering all elements as sorted runs of size 1
+- It iteratively merges adjacent runs of size S into sorted runs of size 2S
+- The process repeats until a single sorted run encompasses the entire array
+
+### Relevance to External Sorting
+
+While implemented using internal memory structures, the multi-phase methodology mirrors the efficiency principle used in external sorting, where uneven distribution (e.g., Fibonacci distribution) is used to optimize disk access.
 
 ---
 
-## Algorithm Description: Multi-Phase Merge Sort
+## Demonstrated Git Workflow
 
-Multi-Phase Merge Sort is a variation of external merge sort that uses uneven distribution of initial runs across auxiliary files.
+The project's development cycle followed a standard feature-branch workflow:
 
-The process consists of several phases:
+1. **Initial Project Setup** - Repository initialized, README.md, and base main.cpp committed to the main branch.
 
-1. **Distribution Phase** - Input data is split into sorted runs of different lengths (often Fibonacci-based distribution).
+2. **Feature Branch Creation** - A dedicated branch, `unit-tests`, was created to isolate test development.
 
-2. **Merge Phases** - Two or more files are merged repeatedly into a target file. After each merge, roles of files change (input ↔ output).
+3. **Commit History** - Logical and atomic commits were used to document progress
 
-3. **Final Output** - After several phases, one file contains the fully sorted dataset.
-
-This method reduces unnecessary read/write operations and is effective when working with large datasets stored outside of RAM.
 
 ---
 
-## Git Workflow Demonstrated in This Project
+## Test Results and Conclusion
 
-### 1. Initial Project Setup
-- Repository created on GitHub
-- Added README.md
-- Added initial main.cpp
-- First commit: Initial project version
+### Test Execution Status
 
-### 2. Feature Branch Creation
-Created a dedicated branch for test development:
-```bash
-unit-tests
-```
+The full test suite contained within `unit_tests.cpp` was executed and successfully validated the sorting algorithm's correctness across all defined scenarios.
 
-### 3. Commit History
-Logical commit messages were used:
-- Add basic unit test structure
-- Add edge case tests
-- Refactor: code cleanup
-- Small changes to readme 
+- **Total Tests Executed:** 22+
+- **Fixes Applied:** A non-standard C++ array declaration for the N=0 test case (`int arr[0];`) was replaced with a `nullptr` approach, ensuring robust handling of the empty array case.
 
-### 4. Pull Request Workflow
-A Pull Request was created from `unit-tests → main` with a descriptive summary:
-- What was added
-- What tests were implemented
-- What issues were found or fixed
----
+### Conclusion
 
-## Debugging and Fixing Errors
-
-No error was detected
-
----
-
-## Results of the Laboratory Work
-
-The following items confirm successful completion of the assignment:
-- GitHub repository created and initialized
-- Initial code uploaded
-- Feature branch created (unit-tests)
-- Unit tests added
-- Meaningful commit history created
-- Pull Request opened
-- Project documented with full README.md
-- Test results analyzed
-- Detected bugs were fixed (if any)
-
----
-
-## Conclusion
-
-This project demonstrates a full development cycle using Git and GitHub:
-- Source code preparation
-- Branching and version control
-- Writing and executing unit tests
-- Documenting project structure
-- Performing code review through Pull Requests
-
-The student gained practical skills in modern software development workflow, including collaboration, testing, and repository management.
+This project successfully demonstrates the implementation of the Multi-Phase Merge Sort algorithm and confirms the student's practical skills in adhering to a disciplined development workflow, including effective use of Git, GitHub, and Unit Testing.
