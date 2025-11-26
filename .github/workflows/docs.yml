@@ -1,0 +1,41 @@
+name: Doxygen Documentation Deploy
+
+on:
+  push:
+    branches:
+      - feature/docs-ci 
+
+permissions:
+  contents: write
+  pages: write 
+  id-token: write 
+
+jobs:
+  build_docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 
+
+      - name: Install Doxygen and Graphviz
+        run: sudo apt-get install doxygen graphviz
+
+      - name: Generate Doxygen Documentation
+        # Виконання команди Doxygen з використанням нашого Doxyfile
+        run: doxygen Doxyfile
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Шлях, куди Doxygen зберіг файли
+          path: 'docs/html' 
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
