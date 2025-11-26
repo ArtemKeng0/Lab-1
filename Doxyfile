@@ -1,0 +1,8 @@
+# Doxyfile Configuration (Minimal for GitHub Pages)
+PROJECT_NAME           = Iterative Merge Sort Documentation
+OUTPUT_DIRECTORY       = docs
+INPUT                  = main.cpp unit_tests.cpp
+RECURSIVE              = NO
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+EXTRACT_ALL            = YES
