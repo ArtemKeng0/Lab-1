@@ -1,14 +1,23 @@
+/**
+ * @file main.cpp
+ * @mainpage Iterative Multi-Phase Merge Sort Documentation
+ *
+ * @brief Головний файл проєкту. Містить реалізацію алгоритму Iterative Merge Sort 
+ * та функціонал для введення/виведення даних користувачем.
+ *
+ * Перейдіть до розділу **Files** -> **File List**, щоб знайти документовані функції.
+ */
 #include <iostream>
 using namespace std;
 
 // Merge two sorted subarrays
 /**
- * @brief Merges two sorted subarrays into one sorted array.
- * * This function performs the core merge step of the merge sort algorithm.
- * * @param arr The array containing the subarrays to be merged.
+ * @brief Merges two sorted subarrays into one sorted array segment: arr[l..r].
+ * @param arr The array containing the subarrays to be merged.
  * @param l The starting index of the first subarray.
  * @param m The ending index of the first subarray (mid-point).
  * @param r The ending index of the second subarray.
+ * @return void. The array is modified in-place.
  */
 void mergeArrays(int arr[], int l, int m, int r) {
     int n1 = m - l + 1;
@@ -34,14 +43,14 @@ void mergeArrays(int arr[], int l, int m, int r) {
     delete[] R;
 }
 
-// Multi-phase merge sort
+// Multi-phase merge sort (Iterative Merge Sort)
 /**
  * @brief Performs Multi-Phase (Iterative) Merge Sort on the given array.
- * * This bottom-up approach iteratively merges runs of increasing size (1, 2, 4, ...).
+ * This bottom-up approach iteratively merges runs of increasing size (1, 2, 4, ...).
  * It has a time complexity of O(n log n).
- *
  * @param arr The array to be sorted.
  * @param n The number of elements in the array.
+ * @return void. The array is sorted in-place.
  */
 void multiPhaseMergeSort(int arr[], int n) {
     int size = 1;
@@ -78,6 +87,7 @@ int main() {
 
     cout << "Sorted array: ";
     for (int i = 0; i < n; i++) cout << arr[i] << " ";
+    cout << endl;
 
     delete[] arr;
     return 0;
