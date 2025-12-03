@@ -2,22 +2,36 @@
 
 PROJECT_NAME           = Iterative Merge Sort Documentation
 PROJECT_BRIEF          = "Lab 2: Documentation for Multi-Phase Merge Sort"
+PROJECT_LOGO           = 
 OUTPUT_DIRECTORY       = docs
 CREATE_SUBDIRS         = NO
 OUTPUT_LANGUAGE        = English
 
 INPUT                  = main.cpp unit_tests.cpp
-RECURSIVE              = NO
 FILE_PATTERNS          = *.cpp *.h
+RECURSIVE              = NO
+EXCLUDE_PATTERNS       = 
+EXCLUDE_SYMBOLS        = 
 
 GENERATE_HTML          = YES
 HTML_OUTPUT            = html
-GENERATE_TREEVIEW      = YES
+HTML_FILE_EXTENSION    = .html
+HTML_COLORSTYLE        = LIGHT
+GENERATE_TREEVIEW      = NO 
+DISABLE_INDEX          = NO
+HTML_DISABLE_INDEX     = NO 
 
 EXTRACT_ALL            = YES
 EXTRACT_STATIC         = YES
 EXTRACT_PRIVATE        = YES
 HIDE_UNDOC_MEMBERS     = NO
 HIDE_UNDOC_CLASSES     = NO
-SOURCE_BROWSER         = YES
+HIDE_FRIEND_INFO       = NO
+
+SOURCE_BROWSER         = YES # Дозволяє переглядати вихідний код
+STRIP_CODE_COMMENTS    = YES
+INLINE_SOURCES         = NO
+OPTIMIZE_OUTPUT_FOR_C  = NO
 ENABLE_PREPROCESSING   = YES
+MACRO_EXPANSION        = NO
+SEARCHENGINE           = YES
