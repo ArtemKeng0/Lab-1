@@ -1,0 +1,241 @@
+/**
+ * @file unit_tests.cpp
+ * @brief Contains the iterative Merge Sort implementation (for testing purposes) 
+ * and a comprehensive suite of 22+ unit tests.
+ */
+#include <iostream>
+#include <algorithm> // Required for std::equal
+#include <cassert>   // Required for the assert macro
+#include <vector>    // Required for defining expected results easily
+
+using namespace std;
+
+// --- Core Merge Sort Functions (Duplicate for independent testing) ---
+
+/**
+ * @brief Merges two sorted subarrays into one sorted array segment: arr[l..r].
+ * * This function is duplicated here to allow unit_tests.cpp to run independently.
+ * @param arr The array containing the subarrays to be merged.
+ * @param l The starting index of the first subarray.
+ * @param m The ending index of the first subarray (mid-point).
+ * @param r The ending index of the second subarray.
+ * @return void. The array is modified in-place.
+ */
+void mergeArrays(int arr[], int l, int m, int r) {
+    int n1 = m - l + 1;
+    int n2 = r - m;
+
+    int *L = new int[n1];
+    int *R = new int[n2];
+
+    for (int i = 0; i < n1; i++) L[i] = arr[l + i];
+    for (int i = 0; i < n2; i++) R[i] = arr[m + 1 + i];
+
+    int i = 0, j = 0, k = l;
+
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) arr[k++] = L[i++];
+        else arr[k++] = R[j++];
+    }
+
+    while (i < n1) arr[k++] = L[i++];
+    while (j < n2) arr[k++] = R[j++];
+
+    delete[] L;
+    delete[] R;
+}
+
+/**
+ * @brief Performs Multi-Phase (Iterative) Merge Sort on the given array.
+ * * This function is duplicated here for unit testing.
+ * @param arr The array to be sorted.
+ * @param n The number of elements in the array.
+ * @return void. The array is sorted in-place.
+ */
+void multiPhaseMergeSort(int arr[], int n) {
+    int size = 1;
+
+    while (size < n) {
+        int left = 0;
+
+        while (left < n) {
+            int mid = left + size - 1;
+            int right = left + 2 * size - 1;
+
+            if (mid >= n) break;
+            if (right >= n) right = n - 1;
+
+            mergeArrays(arr, left, mid, right);
+            left += 2 * size;
+        }
+
+        size *= 2;
+    }
+}
+
+// --- Helper Functions and Test Runner ---
+
+/**
+ * @brief Compares a C-style array with a C++ vector for equality.
+ * @param arr1 The array pointer.
+ * @param arr2 The vector containing the expected result.
+ * @return bool True if arrays are identical or both are empty/null.
+ */
+bool arraysEqual(int arr1[], const vector<int>& arr2) {
+    if (arr2.empty() && arr2.size() == 0) return true;
+    if (arr1 == nullptr && arr2.empty()) return true; // Handle case N=0
+    return equal(arr1, arr1 + arr2.size(), arr2.begin());
+}
+
+/**
+ * @brief Runs all 22+ unit tests for mergeArrays and multiPhaseMergeSort.
+ */
+void runTests() {
+    cout << "### Running Unit Tests ###" << endl;
+
+    //  Tests for mergeArrays (The Merge Function)
+    cout << "Testing mergeArrays..." << endl;
+
+    int arr1[] = {1, 3, 5, 2, 4, 6};
+    vector<int> expected1 = {1, 2, 3, 4, 5, 6};
+    mergeArrays(arr1, 0, 2, 5); 
+    assert(arraysEqual(arr1, expected1) && "Test 1: Basic merge");
+
+    int arr2[] = {5, 8, 8, 5, 9, 9};
+    vector<int> expected2 = {5, 5, 8, 8, 9, 9};
+    mergeArrays(arr2, 0, 2, 5); 
+    assert(arraysEqual(arr2, expected2) && "Test 2: Merge with duplicates");
+
+    int arr3[] = {1, 2, 10, 11};
+    vector<int> expected3 = {1, 2, 10, 11};
+    mergeArrays(arr3, 0, 1, 3); 
+    assert(arraysEqual(arr3, expected3) && "Test 3: Left array finishes first");
+
+    int arr4[] = {10, 11, 1, 2};
+    vector<int> expected4 = {1, 2, 10, 11};
+    mergeArrays(arr4, 0, 1, 3); 
+    assert(arraysEqual(arr4, expected4) && "Test 4: Right array finishes first");
+
+    int arr5[] = {99, 10, 30, 20, 40, 0};
+    vector<int> expected5 = {99, 10, 20, 30, 40, 0};
+    mergeArrays(arr5, 1, 2, 4); 
+    assert(arraysEqual(arr5, expected5) && "Test 5: Merge inner subarrays");
+    
+    cout << "mergeArrays: 5 tests passed." << endl;
+    cout << endl; 
+
+    // Tests for multiPhaseMergeSort
+    cout << "Testing multiPhaseMergeSort..." << endl;
+
+    int* arr6 = nullptr; 
+    int n6 = 0;
+    vector<int> expected6 = {};
+    multiPhaseMergeSort(arr6, n6);
+    assert(arraysEqual(arr6, expected6) && "Test 6: Empty array");
+
+    int arr7[] = {42};
+    int n7 = 1;
+    vector<int> expected7 = {42};
+    multiPhaseMergeSort(arr7, n7);
+    assert(arraysEqual(arr7, expected7) && "Test 7: Single element");
+
+    int arr8[] = {10, 20};
+    int n8 = 2;
+    vector<int> expected8 = {10, 20};
+    multiPhaseMergeSort(arr8, n8);
+    assert(arraysEqual(arr8, expected8) && "Test 8: Two elements (sorted)");
+
+    int arr9[] = {20, 10};
+    int n9 = 2;
+    vector<int> expected9 = {10, 20};
+    multiPhaseMergeSort(arr9, n9);
+    assert(arraysEqual(arr9, expected9) && "Test 9: Two elements (reversed)");
+
+    int arr10[] = {5, 2, 8, 1, 4};
+    int n10 = 5;
+    vector<int> expected10 = {1, 2, 4, 5, 8};
+    multiPhaseMergeSort(arr10, n10);
+    assert(arraysEqual(arr10, expected10) && "Test 10: N=5 (Odd count)");
+
+    int arr11[] = {8, 7, 6, 5, 4, 3, 2, 1};
+    int n11 = 8;
+    vector<int> expected11 = {1, 2, 3, 4, 5, 6, 7, 8};
+    multiPhaseMergeSort(arr11, n11);
+    assert(arraysEqual(arr11, expected11) && "Test 11: N=8 (Reversed)");
+
+    int arr12[] = {5, 0, 3, 1};
+    int n12 = 4;
+    vector<int> expected12 = {0, 1, 3, 5};
+    multiPhaseMergeSort(arr12, n12);
+    assert(arraysEqual(arr12, expected12) && "Test 12: Contains zero");
+
+    int arr13[] = {-5, -2, -8, -1};
+    int n13 = 4;
+    vector<int> expected13 = {-8, -5, -2, -1};
+    multiPhaseMergeSort(arr13, n13);
+    assert(arraysEqual(arr13, expected13) && "Test 13: Negative numbers");
+
+    int arr14[] = {-10, 5, 0, -5, 10};
+    int n14 = 5;
+    vector<int> expected14 = {-10, -5, 0, 5, 10};
+    multiPhaseMergeSort(arr14, n14);
+    assert(arraysEqual(arr14, expected14) && "Test 14: Mixed signs");
+
+    int arr15[] = {1, 2, 3, 4, 5, 6};
+    int n15 = 6;
+    vector<int> expected15 = {1, 2, 3, 4, 5, 6};
+    multiPhaseMergeSort(arr15, n15);
+    assert(arraysEqual(arr15, expected15) && "Test 15: Already sorted");
+
+    int arr16[] = {7, 7, 7, 7, 7};
+    int n16 = 5;
+    vector<int> expected16 = {7, 7, 7, 7, 7};
+    multiPhaseMergeSort(arr16, n16);
+    assert(arraysEqual(arr16, expected16) && "Test 16: All elements same");
+
+    int arr17[] = {5, 1, 5, 2, 4, 2, 4, 3};
+    int n17 = 8;
+    vector<int> expected17 = {1, 2, 2, 3, 4, 4, 5, 5};
+    multiPhaseMergeSort(arr17, n17);
+    assert(arraysEqual(arr17, expected17) && "Test 17: With duplicates");
+
+    int arr18[] = {16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
+    int n18 = 16;
+    vector<int> expected18 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
+    multiPhaseMergeSort(arr18, n18);
+    assert(arraysEqual(arr18, expected18) && "Test 18: N=16 (Power of 2)");
+
+    int arr19[] = {7, 6, 5, 4, 3, 2, 1};
+    int n19 = 7;
+    vector<int> expected19 = {1, 2, 3, 4, 5, 6, 7};
+    multiPhaseMergeSort(arr19, n19);
+    assert(arraysEqual(arr19, expected19) && "Test 19: N=7 (Not power of 2)");
+
+    int arr20[] = {9, 8, 7, 6, 5, 4, 3, 2, 1};
+    int n20 = 9;
+    vector<int> expected20 = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    multiPhaseMergeSort(arr20, n20);
+    assert(arraysEqual(arr20, expected20) && "Test 20: N=9 (Not power of 2)");
+
+    int arr21[] = {1000, 1, 500, 2, 250, 0};
+    int n21 = 6;
+    vector<int> expected21 = {0, 1, 2, 250, 500, 1000};
+    multiPhaseMergeSort(arr21, n21);
+    assert(arraysEqual(arr21, expected21) && "Test 21: Large value range");
+
+    int arr22[] = {3, 1, 2};
+    int n22 = 3;
+    vector<int> expected22 = {1, 2, 3};
+    multiPhaseMergeSort(arr22, n22);
+    assert(arraysEqual(arr22, expected22) && "Test 22: N=3");
+
+    cout << "multiPhaseMergeSort: 17 tests passed." << endl;
+
+    cout << endl; 
+    cout << " All 22 Unit Tests Passed Successfully! (If no Assert message appeared)" << endl;
+}
+
+int main() {
+    runTests(); 
+    return 0;
+}
